@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config';
+---
+
+<BaseLayout title="Contact" description="Contact information for Hermann Lücken genannt Klaßen, political scientist at the University of Göttingen.">
+  <div class="mb-10">
+    <h1 class="font-serif text-3xl font-semibold text-stone-900 mb-2">Contact</h1>
+    <p class="text-stone-500">Get in touch for research collaborations, teaching inquiries, or general questions.</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8">
+    <!-- Contact Details -->
+    <div class="space-y-6">
+      <div class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="font-semibold text-stone-800 mb-4">Contact Details</h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-3">
+            <span class="text-blue-500 mt-0.5">✉</span>
+            <div>
+              <p class="text-stone-500 text-xs mb-0.5">Email</p>
+              <a href={`mailto:${siteConfig.email}`} class="text-stone-800 hover:text-blue-700">{siteConfig.email}</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-blue-500 mt-0.5">📍</span>
+            <div>
+              <p class="text-stone-500 text-xs mb-0.5">Office</p>
+              <p class="text-stone-800">{siteConfig.office}</p>
+              <p class="text-stone-500 text-xs mt-1">{siteConfig.department}</p>
+              <p class="text-stone-500 text-xs">{siteConfig.institution}</p>
+            </div>
+          </div>
+          {siteConfig.phone && (
+            <div class="flex items-start gap-3">
+              <span class="text-blue-500 mt-0.5">📞</span>
+              <div>
+                <p class="text-stone-500 text-xs mb-0.5">Phone</p>
+                <a href={`tel:${siteConfig.phone}`} class="text-stone-800 hover:text-blue-700">{siteConfig.phone}</a>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Academic Profiles -->
+      <div class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="font-semibold text-stone-800 mb-4">Academic Profiles</h2>
+        <div class="space-y-2">
+          {siteConfig.social.orcid && (
+            <a href={siteConfig.social.orcid} target="_blank" class="flex items-center gap-3 text-sm text-stone-600 hover:text-blue-700 group">
+              <span class="w-6 h-6 bg-green-100 rounded flex items-center justify-center text-xs font-bold text-green-700">iD</span>
+              <span>ORCID</span>
+              <span class="text-stone-300 group-hover:text-blue-400 ml-auto">→</span>
+            </a>
+          )}
+          {siteConfig.social.googleScholar && (
+            <a href={siteConfig.social.googleScholar} target="_blank" class="flex items-center gap-3 text-sm text-stone-600 hover:text-blue-700 group">
+              <span class="w-6 h-6 bg-blue-100 rounded flex items-center justify-center text-xs font-bold text-blue-700">GS</span>
+              <span>Google Scholar</span>
+              <span class="text-stone-300 group-hover:text-blue-400 ml-auto">→</span>
+            </a>
+          )}
+          {siteConfig.social.researchGate && (
+            <a href={siteConfig.social.researchGate} target="_blank" class="flex items-center gap-3 text-sm text-stone-600 hover:text-blue-700 group">
+              <span class="w-6 h-6 bg-teal-100 rounded flex items-center justify-center text-xs font-bold text-teal-700">RG</span>
+              <span>ResearchGate</span>
+              <span class="text-stone-300 group-hover:text-blue-400 ml-auto">→</span>
+            </a>
+          )}
+          {siteConfig.social.github && (
+            <a href={siteConfig.social.github} target="_blank" class="flex items-center gap-3 text-sm text-stone-600 hover:text-blue-700 group">
+              <span class="w-6 h-6 bg-stone-100 rounded flex items-center justify-center text-xs font-bold text-stone-700">GH</span>
+              <span>GitHub</span>
+              <span class="text-stone-300 group-hover:text-blue-400 ml-auto">→</span>
+            </a>
+          )}
+          {siteConfig.social.substack && (
+            <a href={siteConfig.social.substack} target="_blank" class="flex items-center gap-3 text-sm text-stone-600 hover:text-blue-700 group">
+              <span class="w-6 h-6 bg-orange-100 rounded flex items-center justify-center text-xs font-bold text-orange-700">SS</span>
+              <span>Substack</span>
+              <span class="text-stone-300 group-hover:text-blue-400 ml-auto">→</span>
+            </a>
+          )}
+          {siteConfig.social.youtube && (
+            <a href={siteConfig.social.youtube} target="_blank" class="flex items-center gap-3 text-sm text-stone-600 hover:text-red-600 group">
+              <span class="w-6 h-6 bg-red-100 rounded flex items-center justify-center text-xs font-bold text-red-700">▶</span>
+              <span>YouTube</span>
+              <span class="text-stone-300 group-hover:text-red-400 ml-auto">→</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Map / Institution -->
+    <div class="bg-white border border-stone-200 rounded-lg p-6">
+      <h2 class="font-semibold text-stone-800 mb-4">Location</h2>
+      <div class="aspect-video bg-stone-100 rounded-lg mb-4 overflow-hidden">
+        <iframe
+          width="100%"
+          height="100%"
+          style="border:0"
+          loading="lazy"
+          allowfullscreen
+          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-placeholder&q=Platz+der+G%C3%B6ttinger+Sieben+3,+37073+G%C3%B6ttingen"
+          title="Office location"
+        />
+      </div>
+      <p class="text-sm text-stone-600">{siteConfig.office}</p>
+      <p class="text-xs text-stone-400 mt-1">{siteConfig.department} · {siteConfig.institution}</p>
+    </div>
+  </div>
+</BaseLayout>

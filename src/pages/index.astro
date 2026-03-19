@@ -1,19 +1,75 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Markdown from '../components/Markdown.astro';
-
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
-
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig, publications, teaching } from '../config';
 ---
 
-<Layout title="Welcome to Astro.">
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="mb-10 text-lg" />
-    <p>
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg sm:min-w-64">Read the Docs</a>
-    </p>
-</Layout>
+<BaseLayout title="Home">
+  <!-- Hero Section -->
+  <section class="flex flex-col md:flex-row items-start gap-10 md:gap-16 mb-20">
+    <!-- Profile Photo -->
+    <div class="flex-shrink-0">
+      <img
+        src="/profile.jpg"
+        alt={siteConfig.name}
+        class="w-44 h-44 rounded-full object-cover object-top shadow-md ring-4 ring-white border border-stone-200"
+        onerror="this.src='https://ui-avatars.com/api/?name=HLK&background=1e3a5f&color=fff&size=200'"
+      />
+    </div>
+    <!-- Name & Bio -->
+    <div class="flex-1">
+      <h1 class="font-serif text-3xl md:text-4xl font-semibold text-stone-900 mb-1">{siteConfig.name}</h1>
+      <p class="text-blue-800 font-medium mb-1">{siteConfig.title}</p>
+      <p class="text-stone-500 text-sm mb-4">{siteConfig.department} · {siteConfig.institution}</p>
+      <p class="text-stone-700 leading-relaxed mb-6 max-w-xl">{siteConfig.bio}</p>
+      <!-- Quick Links -->
+      <div class="flex flex-wrap gap-3">
+        <a href="/research" class="px-4 py-2 bg-blue-800 text-white text-sm rounded hover:bg-blue-900 transition-colors">Research</a>
+        <a href="/cv" class="px-4 py-2 border border-stone-300 text-stone-700 text-sm rounded hover:border-blue-800 hover:text-blue-800 transition-colors">Curriculum Vitae</a>
+        <a href="/contact" class="px-4 py-2 border border-stone-300 text-stone-700 text-sm rounded hover:border-blue-800 hover:text-blue-800 transition-colors">Contact</a>
+        {siteConfig.social.orcid && <a href={siteConfig.social.orcid} target="_blank" class="px-4 py-2 border border-stone-300 text-stone-700 text-sm rounded hover:border-blue-800 hover:text-blue-800 transition-colors">ORCID</a>}
+        {siteConfig.social.googleScholar && <a href={siteConfig.social.googleScholar} target="_blank" class="px-4 py-2 border border-stone-300 text-stone-700 text-sm rounded hover:border-blue-800 hover:text-blue-800 transition-colors">Google Scholar</a>}
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Interests -->
+  <section class="mb-16">
+    <h2 class="font-serif text-2xl font-semibold text-stone-900 mb-4">Research Interests</h2>
+    <div class="flex flex-wrap gap-2">
+      {siteConfig.researchInterests.map(interest => (
+        <span class="px-3 py-1 bg-blue-50 border border-blue-200 text-blue-800 text-sm rounded-full">{interest}</span>
+      ))}
+    </div>
+  </section>
+
+  <!-- Recent Publications -->
+  <section class="mb-16">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-serif text-2xl font-semibold text-stone-900">Recent Publications</h2>
+      <a href="/research" class="text-sm text-blue-800 hover:underline">View all →</a>
+    </div>
+    <div class="space-y-4">
+      {publications.peerReviewed.slice(0, 3).map(pub => (
+        <div class="bg-white border border-stone-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
+          <p class="text-xs text-stone-400 mb-1">{pub.year} · Peer-Reviewed</p>
+          <p class="text-stone-800 font-medium leading-snug mb-1">{pub.title}</p>
+          <p class="text-stone-500 text-sm">{pub.authors} · <em>{pub.journal}</em></p>
+          {pub.doi && <a href={pub.doi} target="_blank" class="text-xs text-blue-700 hover:underline mt-1 inline-block">DOI →</a>}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Teaching Award -->
+  <section class="mb-16">
+    <h2 class="font-serif text-2xl font-semibold text-stone-900 mb-4">Teaching</h2>
+    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4 flex items-start gap-3">
+      <span class="text-amber-500 text-xl">🏆</span>
+      <div>
+        <p class="font-medium text-stone-800">{teaching.award.title}</p>
+        <p class="text-sm text-stone-600">{teaching.award.description}</p>
+      </div>
+    </div>
+    <a href="/teaching" class="text-sm text-blue-800 hover:underline">View all courses →</a>
+  </section>
+</BaseLayout>

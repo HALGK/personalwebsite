@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { cvData, siteConfig, teaching } from '../config';
+---
+
+<BaseLayout title="CV" description="Academic Curriculum Vitae of Hermann Lücken genannt Klaßen.">
+  <div class="flex items-start justify-between mb-10">
+    <div>
+      <h1 class="font-serif text-3xl font-semibold text-stone-900 mb-1">Curriculum Vitae</h1>
+      <p class="text-stone-500 text-sm">As of February 2026</p>
+    </div>
+    <a
+      href="/cv.pdf"
+      download
+      class="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-800 text-white text-sm rounded hover:bg-blue-900 transition-colors"
+    >
+      ↓ Download PDF
+    </a>
+  </div>
+
+  <!-- Professional Experience -->
+  <section class="mb-12">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-5 pb-2 border-b border-stone-200">Professional Experience</h2>
+    <div class="space-y-6">
+      {cvData.positions.map(pos => (
+        <div class="flex gap-5">
+          <div class="w-36 flex-shrink-0 text-xs text-stone-400 pt-1">{pos.period}</div>
+          <div>
+            <p class="font-semibold text-stone-800">{pos.title}</p>
+            <p class="text-stone-500 text-sm mb-1">{pos.institution}</p>
+            {pos.bullets.length > 0 && (
+              <ul class="text-stone-600 text-sm space-y-1 mt-1">
+                {pos.bullets.map(b => <li class="flex gap-2"><span class="text-blue-400">▸</span><span>{b}</span></li>)}
+              </ul>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="mb-12">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-5 pb-2 border-b border-stone-200">Education</h2>
+    <div class="space-y-6">
+      {cvData.education.map(edu => (
+        <div class="flex gap-5">
+          <div class="w-36 flex-shrink-0 text-xs text-stone-400 pt-1">{edu.period}</div>
+          <div>
+            <p class="font-semibold text-stone-800">{edu.degree}</p>
+            <p class="text-stone-500 text-sm mb-1">{edu.institution}</p>
+            <p class="text-stone-600 text-sm">{edu.details}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Teaching -->
+  <section class="mb-12">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-5 pb-2 border-b border-stone-200">Teaching</h2>
+    <div class="mb-3">
+      <span class="text-sm font-medium text-amber-700">🏆 {teaching.award.title}</span>
+    </div>
+    <div class="space-y-2">
+      {teaching.courses.map(course => (
+        <div class="flex gap-5 text-sm">
+          <div class="w-36 flex-shrink-0 text-stone-400">{course.semester}</div>
+          <div>
+            <span class={`mr-2 text-xs px-1.5 py-0.5 rounded ${course.language === 'EN' ? 'bg-blue-100 text-blue-700' : 'bg-stone-100 text-stone-500'}`}>{course.language}</span>
+            <span class="text-xs px-1.5 py-0.5 bg-purple-50 text-purple-600 rounded mr-2">{course.level}</span>
+            <span class="text-stone-700">{course.title}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Funding & Awards -->
+  <section class="mb-12">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-5 pb-2 border-b border-stone-200">Grants & Scholarships</h2>
+    <div class="space-y-3">
+      {cvData.funding.map(f => (
+        <div class="flex gap-5 text-sm">
+          <div class="w-36 flex-shrink-0 text-stone-400">{f.year}</div>
+          <div class="text-stone-700">{f.title}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="mb-12">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-5 pb-2 border-b border-stone-200">Skills</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <p class="text-sm font-medium text-stone-600 mb-2">Software</p>
+        <div class="flex flex-wrap gap-2">
+          {cvData.skills.software.map(s => <span class="text-xs px-2 py-1 bg-stone-100 text-stone-600 rounded">{s}</span>)}
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-stone-600 mb-2">Languages</p>
+        <div class="flex flex-wrap gap-2">
+          {cvData.skills.languages.map(l => <span class="text-xs px-2 py-1 bg-stone-100 text-stone-600 rounded">{l}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

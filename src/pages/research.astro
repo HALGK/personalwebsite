@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { publications } from '../config';
+---
+
+<BaseLayout title="Research" description="Research and publications by Hermann Lücken genannt Klaßen on energy policy, regulatory governance and European integration.">
+  <div class="mb-10">
+    <h1 class="font-serif text-3xl font-semibold text-stone-900 mb-2">Research</h1>
+    <p class="text-stone-500">Political Economy of Energy Policy · Regulatory Governance · European Integration</p>
+  </div>
+
+  <!-- Dissertation -->
+  <section class="mb-14">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-3">Dissertation</h2>
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-5">
+      <p class="font-semibold text-stone-800 mb-2">The Political Economy of Regulatory Divergence in European Energy Markets: Institutional Power, Path Dependence, and the Persistence of State Intervention</p>
+      <p class="text-stone-600 text-sm">Georg-August-Universität Göttingen · Supervisors: Prof. Dr. Simon Fink, Prof. Dr. Eva Ruffing, Prof. Dr. Sandra Eckert</p>
+      <p class="text-stone-500 text-sm mt-2">Defense: March 2026</p>
+    </div>
+  </section>
+
+  <!-- Peer-Reviewed Articles -->
+  <section class="mb-14">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-4">Peer-Reviewed Articles</h2>
+    <div class="space-y-5">
+      {publications.peerReviewed.map((pub, i) => (
+        <div class="flex gap-4 bg-white border border-stone-200 rounded-lg p-5 hover:shadow-sm transition-shadow">
+          <span class="text-stone-300 font-mono text-lg font-bold mt-0.5">{i + 1}</span>
+          <div>
+            <p class="text-stone-800 font-medium leading-snug mb-1">{pub.title}</p>
+            <p class="text-stone-500 text-sm mb-1">{pub.authors} ({pub.year}). <em>{pub.journal}</em>{pub.volume ? `, ${pub.volume}` : ''}{pub.pages ? `, ${pub.pages}` : ''}.</p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              {pub.doi && <a href={pub.doi} target="_blank" class="text-xs text-blue-700 hover:underline">DOI →</a>}
+              {pub.tags?.map(tag => <span class="text-xs px-2 py-0.5 bg-stone-100 text-stone-500 rounded-full">{tag}</span>)}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Work in Progress -->
+  <section class="mb-14">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-4">Work in Progress</h2>
+    <div class="space-y-5">
+      {publications.workInProgress.map(pub => (
+        <div class="bg-white border border-stone-200 rounded-lg p-5 hover:shadow-sm transition-shadow">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-medium">{pub.status}</span>
+          </div>
+          <p class="text-stone-800 font-medium leading-snug mb-1">{pub.title}</p>
+          <p class="text-stone-500 text-sm mb-2">{pub.authors}</p>
+          {pub.presented && pub.presented.length > 0 && (
+            <div class="text-xs text-stone-400">
+              <span class="font-medium">Presented at:</span> {pub.presented.join(' · ')}
+            </div>
+          )}
+          <div class="flex flex-wrap gap-2 mt-2">
+            {pub.tags?.map(tag => <span class="text-xs px-2 py-0.5 bg-stone-100 text-stone-500 rounded-full">{tag}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Working Papers -->
+  <section class="mb-14">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-4">Working Papers & Reports</h2>
+    <div class="space-y-5">
+      {publications.workingPapers.map((pub, i) => (
+        <div class="flex gap-4 bg-white border border-stone-200 rounded-lg p-5 hover:shadow-sm transition-shadow">
+          <span class="text-stone-300 font-mono text-lg font-bold mt-0.5">{i + 6}</span>
+          <div>
+            <p class="text-stone-800 font-medium leading-snug mb-1">{pub.title}</p>
+            <p class="text-stone-500 text-sm">{pub.authors} ({pub.year}). {pub.publisher}</p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              {pub.tags?.map(tag => <span class="text-xs px-2 py-0.5 bg-stone-100 text-stone-500 rounded-full">{tag}</span>)}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

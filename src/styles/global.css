@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Custom font settings */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.font-serif {
+  font-family: 'Lora', Georgia, serif;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #1e3a5f;
+  outline-offset: 2px;
+}
+
+/* Print styles for CV */
+@media print {
+  nav, footer { display: none; }
+  body { background: white; }
+  main { max-width: 100%; padding: 0; }
+}

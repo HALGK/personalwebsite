@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { teaching, siteConfig } from '../config';
+---
+
+<BaseLayout title="Teaching" description="Courses and teaching activities by Hermann Lücken genannt Klaßen at the University of Göttingen.">
+  <div class="mb-10">
+    <h1 class="font-serif text-3xl font-semibold text-stone-900 mb-2">Teaching</h1>
+    <p class="text-stone-500">Georg-August-Universität Göttingen · Institut für Politikwissenschaft</p>
+  </div>
+
+  <!-- Teaching Award -->
+  <section class="mb-12">
+    <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 flex items-start gap-4">
+      <span class="text-3xl">🏆</span>
+      <div>
+        <p class="font-semibold text-stone-800 text-lg">{teaching.award.title}</p>
+        <p class="text-stone-600 text-sm mt-1">{teaching.award.description}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section class="mb-12">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-5">Courses</h2>
+    <div class="space-y-6">
+      {teaching.courses.map(course => (
+        <div class="bg-white border border-stone-200 rounded-lg p-5 hover:shadow-sm transition-shadow">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-xs px-2 py-0.5 rounded-full font-medium
+              {course.language === 'EN' ? 'bg-blue-100 text-blue-700' : 'bg-stone-100 text-stone-600'}">
+              {course.language}
+            </span>
+            <span class="text-xs px-2 py-0.5 bg-purple-50 text-purple-700 rounded-full font-medium">{course.level}</span>
+            <span class="text-xs text-stone-400">{course.semester}</span>
+          </div>
+          <h3 class="font-semibold text-stone-800 mb-1">{course.title}</h3>
+          <p class="text-stone-500 text-sm mb-3">{course.description}</p>
+          <!-- YouTube Embed (nur wenn youtubeId gesetzt) -->
+          {course.youtubeId && (
+            <div class="aspect-video rounded-lg overflow-hidden bg-stone-100">
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${course.youtubeId}`}
+                title={course.title}
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              />
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Other Activities -->
+  <section class="mb-12">
+    <h2 class="font-serif text-xl font-semibold text-stone-900 mb-4">Further Teaching Activities</h2>
+    <ul class="space-y-2">
+      {teaching.otherActivities.map(activity => (
+        <li class="flex gap-3 text-stone-600 text-sm">
+          <span class="text-blue-400 mt-1">▸</span>
+          <span>{activity}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- YouTube Channel Link -->
+  {siteConfig.social.youtube && (
+    <section class="mb-12">
+      <div class="bg-red-50 border border-red-200 rounded-lg p-5 flex items-center gap-4">
+        <span class="text-3xl">▶️</span>
+        <div>
+          <p class="font-semibold text-stone-800">Watch on YouTube</p>
+          <p class="text-stone-500 text-sm mb-2">Lecture recordings and teaching materials</p>
+          <a href={siteConfig.social.youtube} target="_blank" class="text-sm text-red-600 hover:underline">Visit my YouTube Channel →</a>
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
